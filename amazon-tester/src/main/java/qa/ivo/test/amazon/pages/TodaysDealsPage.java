@@ -1,6 +1,10 @@
 package qa.ivo.test.amazon.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
+
+import qa.ivo.test.amazon.product.TodaysDealProduct;
 
 public class TodaysDealsPage extends Page {
 	
@@ -23,6 +27,14 @@ public class TodaysDealsPage extends Page {
 	@Override
 	public void close() {
 		driver.close();
+	}
+	
+	/**
+	 * Get a list of Today's Deals products
+	 * @return
+	 */
+	public List<TodaysDealProduct> getProducts() {
+		return new TodaysDealsProductList(driver).getProducts();
 	}
 	
 	// Additional methods related to the page can be added...

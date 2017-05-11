@@ -1,12 +1,19 @@
 package qa.ivo.test;
 
+import java.util.List;
+import java.util.logging.Logger;
+
 import org.testng.annotations.Test;
 
 import qa.ivo.test.amazon.pages.GiftCardsRegistryPage;
 import qa.ivo.test.amazon.pages.MainPage;
 import qa.ivo.test.amazon.pages.TodaysDealsPage;
+import qa.ivo.test.amazon.product.SearchResultProduct;
+import qa.ivo.test.amazon.product.TodaysDealProduct;
 
 public class AmazonTestCases {
+	
+	private static final Logger LOGGER = Logger.getLogger(AmazonTestCases.class.getName());
 	
 	@Test
 	public void loadAmazonHomePage() {
@@ -64,5 +71,34 @@ public class AmazonTestCases {
 		
 		// Go to a image-represented gift card category
 		giftsPage.selectCategory("send a gift card by mail");	
+	}
+	
+	@Test
+	public void searchAmazon() {
+		MainPage mainPage = new MainPage();
+		
+		// Load Amazon's home page
+		mainPage.load();
+		
+		// Search for "Java Books"
+		List<SearchResultProduct> results = mainPage.search("Java Books");
+		
+		// Print information on the products
+		for (SearchResultProduct product : results) {
+			LOGGER.info(product.toString());
+		}
+	}
+
+	@Test
+	public void listTodaysDeals() {
+		TodaysDealsPage today = new TodaysDealsPage();
+		
+		// Load "Today's Deals"
+		today.load();
+
+		// Print information on the products
+		for (TodaysDealProduct product : today.getProducts()) {
+			LOGGER.info(product.toString());
+		}
 	}
 }
